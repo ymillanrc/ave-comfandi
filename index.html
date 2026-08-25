@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bienestar Familiar · Colegios Comfandi 25/08/2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ──────────────────────────────────────────────── */
+:root {
+  --navy:      #1A3C6B;
+  --navy-dk:   #122B50;
+  --navy-lt:   #2D5FA8;
+  --sky:       #EDF3FB;
+  --sky-dk:    #D4E4F5;
+  --green:     #0A7C4E;
+  --green-bg:  #E8F8F1;
+  --amber:     #C97A00;
+  --amber-bg:  #FFF7E6;
+  --red:       #C4242C;
+  --red-bg:    #FEF1F1;
+  --purple:    #5B2D8E;
+  --purple-bg: #F0EBF8;
+  --text:      #0F1923;
+  --text-mid:  #445566;
+  --text-lt:   #8899AA;
+  --border:    #DDE4EE;
+  --surface:   #F6F9FC;
+  --white:     #FFFFFF;
+  --font:      'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font);
+  background: #C8D8EA;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 980px;
+  margin: 28px auto;
+  background: var(--white);
+  box-shadow: 0 4px 32px rgba(10,30,60,.18);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+/* ── HEADER ──────────────────────────────────────────────── */
+.hdr { background: var(--navy); display: flex; }
+.hdr-accent { width: 7px; background: #97d700; flex-shrink: 0; }
+.hdr-body {
+  flex: 1; padding: 28px 36px 24px;
+  display: flex; align-items: flex-end;
+  justify-content: space-between; gap: 24px;
+  background: #003da5;
+}
+.hdr-eyebrow {
+  font-size: 9px; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase; color: #7AADD0; margin-bottom: 9px;
+}
+.hdr-title {
+  font-size: 24px; font-weight: 800; line-height: 1.15;
+  color: #FFFFFF; letter-spacing: -.01em;
+}
+.hdr-sub { margin-top: 9px; font-size: 11px; color: #88B8D8; font-weight: 400; }
+.hdr-kpi { text-align: right; flex-shrink: 0; }
+.hdr-big {
+  font-size: 58px; font-weight: 800; line-height: 1;
+  color: #FFFFFF; letter-spacing: -.03em; font-variant-numeric: tabular-nums;
+}
+.hdr-big-lbl {
+  font-size: 10px; color: #7AADD0; margin-top: 5px;
+  letter-spacing: .12em; text-transform: uppercase; font-weight: 600;
+}
+.hdr-chips { display: flex; gap: 7px; margin-top: 10px; justify-content: flex-end; }
+.hdr-chip {
+  font-size: 9.5px; font-weight: 600; background: rgba(255,255,255,.1);
+  color: #AAC8E4; border-radius: 20px; padding: 3px 10px; white-space: nowrap;
+}
+
+/* ── FILTER BAR ──────────────────────────────────────────── */
+.filter-bar {
+  padding: 12px 36px;
+  background: var(--white);
+  border-bottom: 2px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.filter-label {
+  font-size: 9px; font-weight: 700; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--text-lt);
+  margin-right: 4px; flex-shrink: 0;
+}
+.filter-pill {
+  font-family: var(--font);
+  font-size: 10px; font-weight: 600;
+  padding: 4px 12px; border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: var(--white); color: var(--text-mid);
+  cursor: pointer; transition: all .15s;
+  white-space: nowrap;
+}
+.filter-pill:hover { border-color: #003da5; color: #003da5; }
+.filter-pill.active {
+  background: #003da5; border-color: #003da5; color: #FFFFFF;
+}
+
+/* ── 6-TILE ALERT ROW ────────────────────────────────────── */
+.alert-row {
+  display: grid;
+  grid-template-columns: 1.1fr repeat(5, 1fr);
+  border-bottom: 2px solid var(--border);
+}
+.alert-tile {
+  padding: 16px 12px 13px; text-align: center;
+  border-right: 1px solid var(--border);
+}
+.alert-tile:last-child { border-right: none; }
+.alert-tile.total { background: var(--sky); }
+
+.at-label {
+  font-size: 8.5px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; margin-bottom: 6px;
+}
+.at-label.info { color: var(--navy-lt); }
+.at-label.warn { color: var(--amber); }
+.at-label.good { color: var(--green); }
+
+.at-n {
+  font-size: 30px; font-weight: 800; line-height: 1;
+  letter-spacing: -.02em; font-variant-numeric: tabular-nums; margin-bottom: 3px;
+}
+.at-n.info { color: #003da5; }
+.at-n.warn { color: var(--amber); }
+.at-n.good { color: #97d700; }
+
+.at-pct { font-size: 10px; color: var(--text-lt); margin-bottom: 5px; font-weight: 500; }
+.at-lbl { font-size: 10.5px; color: var(--text-mid); line-height: 1.35; font-weight: 500; }
+.at-rule { height: 2px; border-radius: 2px; margin: 9px auto 0; width: 28px; }
+.at-rule.info { background: var(--navy); }
+.at-rule.warn { background: var(--amber); }
+.at-rule.good { background: var(--green); }
+
+/* ── SECTION TITLES ──────────────────────────────────────── */
+.sec-hdr { padding: 16px 36px 2px; display: flex; align-items: center; gap: 12px; }
+.sec-title {
+  font-size: 9px; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--navy); white-space: nowrap;
+}
+.sec-line { flex: 1; height: 1px; background: var(--border); }
+
+/* ── SCHOOL TABLE ────────────────────────────────────────── */
+.school-wrap { padding: 8px 36px 22px; }
+.school-table { width: 100%; border-collapse: collapse; }
+
+.school-table th {
+  padding: 0 8px 10px; font-size: 9px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--text-lt);
+  text-align: left; border-bottom: 2px solid var(--border);
+}
+.school-table th:not(:first-child) { text-align: center; }
+.school-table td {
+  padding: 7px 8px; border-bottom: 1px solid var(--border); vertical-align: middle;
+}
+.school-table tr:last-child td { border-bottom: none; }
+.school-table tr:nth-child(even) td { background: var(--surface); }
+.school-row.highlighted td { background: #EDF3FB !important; }
+
+.sn { font-size: 12px; font-weight: 700; color: var(--text); }
+.sn-n { font-size: 10px; font-weight: 400; color: var(--text-lt); margin-top: 1px; }
+
+.metric-cell { text-align: center; }
+.mc-n {
+  font-size: 17px; font-weight: 800;
+  font-variant-numeric: tabular-nums; letter-spacing: -.01em; line-height: 1;
+}
+.mc-pct { font-size: 9.5px; font-weight: 500; color: var(--text-lt); margin-top: 2px; margin-bottom: 4px; }
+.mc-bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; width: 48px; margin: 0 auto; }
+.mc-fill { height: 100%; border-radius: 2px; }
+
+.c-psico .mc-n    { color: var(--purple); }
+.c-psico .mc-fill { background: var(--purple); }
+.c-mat   .mc-n    { color: var(--navy-lt); }
+.c-mat   .mc-fill { background: var(--navy-lt); }
+.c-inet  .mc-n    { color: #0A7DA0; }
+.c-inet  .mc-fill { background: #0A7DA0; }
+.c-asist .mc-n    { color: var(--red); }
+.c-asist .mc-fill { background: var(--red); }
+.zero .mc-n { color: var(--text-lt) !important; }
+
+.th-chip {
+  display: inline-block; padding: 2px 8px; border-radius: 10px;
+  font-size: 8.5px; font-weight: 700; letter-spacing: .04em; margin-bottom: 3px;
+}
+.chip-psico { background: var(--purple-bg); color: var(--purple); }
+.chip-mat   { background: var(--sky-dk);    color: var(--navy-lt); }
+.chip-inet  { background: #DDF4FF;          color: #0A7DA0; }
+.chip-asist { background: var(--red-bg);    color: var(--red); }
+
+.th-total { font-size: 11px; font-weight: 700; color: var(--text-mid); display: block; margin-top: 2px; }
+
+/* ── BOTTOM GRID ─────────────────────────────────────────── */
+.bottom-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-top: 2px solid var(--border);
+}
+.bg-left  { padding: 18px 22px 20px 36px; border-right: 1px solid var(--border); }
+.bg-right { padding: 18px 36px 20px 22px; }
+
+.mini-title {
+  font-size: 8.5px; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--text-lt); margin-bottom: 14px;
+}
+
+.infra-row { display: flex; gap: 8px; margin-bottom: 14px; }
+.infra-card { flex: 1; border-radius: 6px; padding: 13px 10px 11px; text-align: center; }
+.ic-no-hab  { background: var(--red-bg);   border: 1px solid #F5BEBE; }
+.ic-enseres { background: var(--amber-bg); border: 1px solid #F5D88E; }
+.ic-psico   { background: var(--green-bg); border: 1px solid #9ADFC3; }
+
+.ic-n {
+  font-size: 30px; font-weight: 800; letter-spacing: -.02em;
+  font-variant-numeric: tabular-nums; line-height: 1; margin-bottom: 4px;
+}
+.ic-no-hab  .ic-n { color: var(--red); }
+.ic-enseres .ic-n { color: var(--amber); }
+.ic-psico   .ic-n { color: #97d700; }
+.ic-lbl { font-size: 10.5px; font-weight: 500; color: var(--text-mid); line-height: 1.35; }
+.ic-sub { font-size: 9px; font-weight: 400; color: var(--text-lt); margin-top: 2px; }
+
+.stacked-intro { font-size: 10.5px; font-weight: 600; color: var(--text-mid); margin-bottom: 6px; margin-top: 2px; }
+.stacked-bar {
+  height: 13px; border-radius: 3px; display: flex;
+  overflow: hidden; background: var(--border); margin-bottom: 9px;
+}
+.sb-seg   { height: 100%; }
+.sb-irrev { background: #C4242C; }
+.sb-rep   { background: #E07520; }
+.sb-leve  { background: #E8B400; }
+.sb-sin_d { background: #CBD5E1; }
+
+.stacked-legend { display: flex; flex-wrap: wrap; gap: 5px 14px; }
+.sl-item { display: flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 500; color: var(--text-mid); }
+.sl-dot { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+
+.mrow { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.mrow-lbl { font-size: 11px; font-weight: 500; color: var(--text-mid); flex: 1; }
+.mrow-track { width: 80px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; flex-shrink: 0; }
+.mrow-fill { height: 100%; border-radius: 3px; }
+.mrow-val { font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; width: 40px; text-align: right; flex-shrink: 0; }
+.mrow-val.good { color: var(--green); }
+.mrow-val.warn { color: var(--amber); }
+.mrow-val.red  { color: var(--red); }
+
+.divider { height: 1px; background: var(--border); margin: 13px 0; }
+
+.impact-row { display: flex; align-items: center; gap: 12px; margin-bottom: 9px; }
+.impact-big {
+  font-size: 30px; font-weight: 800; letter-spacing: -.02em;
+  color: var(--amber); flex-shrink: 0; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.impact-lbl { font-size: 11px; font-weight: 500; color: var(--text-mid); line-height: 1.4; }
+.impact-sub { font-size: 9.5px; font-weight: 400; color: var(--text-lt); margin-top: 2px; }
+
+/* ── FOOTER ──────────────────────────────────────────────── */
+.footer {
+  padding: 10px 36px; font-size: 9px; color: var(--text-lt);
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid var(--border); background: var(--surface); font-weight: 500;
+}
+.footer-brand { font-weight: 800; color: var(--navy); font-size: 11px; }
+
+.metric-note { font-size: 9px; font-weight: 400; color: var(--text-lt); margin-top: 2px; line-height: 1.4; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="hdr-accent"></div>
+    <div class="hdr-body">
+      <div>
+        <div class="hdr-eyebrow">Informe de Bienestar Familiar &middot; Post-Sismo 2026</div>
+        <div class="hdr-title">Encuesta a Familias<br>Colegios Comfandi</div>
+        <div class="hdr-sub">Encuesta aplicada v&iacute;a Microsoft Forms</div>
+      </div>
+      <div class="hdr-kpi">
+        <div class="hdr-big" id="kpi-total">2,457</div>
+        <div class="hdr-big-lbl" id="kpi-total-lbl">familias respondieron</div>
+        <div class="hdr-chips">
+          <div class="hdr-chip" id="kpi-n-colegios">13 colegios</div>
+          <div class="hdr-chip">Actualizado 25/08/2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <span class="filter-label">Filtrar por colegio:</span>
+    <button class="filter-pill active" data-colegio="__todos__">Todos los colegios</button>
+    <button class="filter-pill" data-colegio="Miraflores Primaria">Miraflores Primaria</button>
+  <button class="filter-pill" data-colegio="Terranova">Terranova</button>
+  <button class="filter-pill" data-colegio="San Nicolas">San Nicolas</button>
+  <button class="filter-pill" data-colegio="Municipal">Municipal</button>
+  <button class="filter-pill" data-colegio="Miraflores Bachillerato">Miraflores Bachillerato</button>
+  <button class="filter-pill" data-colegio="Las Delicias">Las Delicias</button>
+  <button class="filter-pill" data-colegio="Calipso">Calipso</button>
+  <button class="filter-pill" data-colegio="El Prado Bachillerato">El Prado Bachillerato</button>
+  <button class="filter-pill" data-colegio="El Prado Primaria">El Prado Primaria</button>
+  <button class="filter-pill" data-colegio="Buga">Buga</button>
+  <button class="filter-pill" data-colegio="Comfandi Regional Palmira">Comfandi Regional Palmira</button>
+  <button class="filter-pill" data-colegio="Adultos Cali">Adultos Cali</button>
+  <button class="filter-pill" data-colegio="Comfandi Yumbo">Comfandi Yumbo</button>
+  </div>
+
+  <!-- 6-TILE ALERT ROW -->
+  <div class="alert-row">
+
+    <div class="alert-tile total">
+      <div class="at-label info">Prioridad</div>
+      <div class="at-n info" id="kpi-n-no-hab">78</div>
+      <div class="at-pct" id="kpi-pct-no-hab">3.2% del total</div>
+      <div class="at-lbl">viviendas<br>no habitables</div>
+      <div class="at-rule info"></div>
+    </div>
+
+    <div class="alert-tile">
+      <div class="at-label warn">Atenci&oacute;n</div>
+      <div class="at-n warn" id="kpi-n-sin-mat">232</div>
+      <div class="at-pct" id="kpi-pct-sin-mat">9.4% del total</div>
+      <div class="at-lbl">sin materiales<br>escolares</div>
+      <div class="at-rule warn"></div>
+    </div>
+
+    <div class="alert-tile total">
+      <div class="at-label warn">Atenci&oacute;n</div>
+      <div class="at-n warn" id="kpi-n-sin-inet">225</div>
+      <div class="at-pct" id="kpi-pct-sin-inet">9.2% del total</div>
+      <div class="at-lbl">sin internet<br>o dispositivo</div>
+      <div class="at-rule warn"></div>
+    </div>
+
+    <div class="alert-tile">
+      <div class="at-label warn">Apoyo</div>
+      <div class="at-n warn" id="kpi-n-psico">214</div>
+      <div class="at-pct" id="kpi-pct-psico">8.7% del total</div>
+      <div class="at-lbl">requieren apoyo<br>psicosocial</div>
+      <div class="at-rule warn"></div>
+    </div>
+
+    <div class="alert-tile total">
+      <div class="at-label warn">Seguimiento</div>
+      <div class="at-n warn" id="kpi-n-no-asist">79</div>
+      <div class="at-pct" id="kpi-pct-no-asist">3.2% del total</div>
+      <div class="at-lbl">no asiste<br>con normalidad</div>
+      <div class="at-rule warn"></div>
+    </div>
+
+    <div class="alert-tile">
+      <div class="at-label good">Positivo</div>
+      <div class="at-n good" id="kpi-n-psico-ya">141</div>
+      <div class="at-pct" id="kpi-pct-psico-ya">5.7% del total</div>
+      <div class="at-lbl">ya reciben apoyo<br>psicosocial</div>
+      <div class="at-rule good"></div>
+    </div>
+
+  </div>
+
+  <!-- SCHOOL TABLE -->
+  <div class="sec-hdr">
+    <div class="sec-title">Indicadores por colegio &mdash; ordenados por mayor necesidad de apoyo psicosocial</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <div class="school-wrap">
+    <table class="school-table">
+      <thead>
+        <tr>
+          <th style="min-width:175px">Colegio</th>
+          <th>
+            <div class="th-chip chip-psico">Psicosocial</div>
+            <div class="metric-note">Requiere apoyo</div>
+            <span class="th-total" id="th-tot-psico">214 total</span>
+          </th>
+          <th>
+            <div class="th-chip chip-mat">Sin materiales</div>
+            <div class="metric-note">No tiene &uacute;tiles</div>
+            <span class="th-total" id="th-tot-mat">232 total</span>
+          </th>
+          <th>
+            <div class="th-chip chip-inet">Sin internet</div>
+            <div class="metric-note">No tiene acceso</div>
+            <span class="th-total" id="th-tot-inet">225 total</span>
+          </th>
+          <th>
+            <div class="th-chip chip-asist">No asiste normal</div>
+            <div class="metric-note">Parcial o ninguna</div>
+            <span class="th-total" id="th-tot-asist">79 total</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr class="school-row" data-colegio="Miraflores Primaria">
+          <td>
+            <div class="sn">Miraflores Primaria</div>
+            <div class="sn-n">298 familias</div>
+          </td>
+          <td class="metric-cell c-psico">
+            <div class="mc-n">37</div>
+            <div class="mc-pct">12.4%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:100%"></div></div>
+          </td>
+          <td class="metric-cell c-mat">
+            <div class="mc-n">21</div>
+            <div class="mc-pct">7.0%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:42%"></div></div>
+          </td>
+          <td class="metric-cell c-inet">
+            <div class="mc-n">39</div>
+            <div class="mc-pct">13.1%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:98%"></div></div>
+          </td>
+          <td class="metric-cell c-asist">
+            <div class="mc-n">7</div>
+            <div class="mc-pct">2.3%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:47%"></div></div>
+          </td>
+        </tr>
+
+        <tr class="school-row" data-colegio="Terranova">
+          <td>
+            <div class="sn">Terranova</div>
+            <div class="sn-n">279 familias</div>
+          </td>
+          <td class="metric-cell c-psico">
+            <div class="mc-n">32</div>
+            <div class="mc-pct">11.5%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:86%"></div></div>
+          </td>
+          <td class="metric-cell c-mat">
+            <div class="mc-n">50</div>
+            <div class="mc-pct">17.9%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:100%"></div></div>
+          </td>
+          <td class="metric-cell c-inet">
+            <div class="mc-n">40</div>
+            <div class="mc-pct">14.3%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:100%"></div></div>
+          </td>
+          <td class="metric-cell c-asist">
+            <div class="mc-n">9</div>
+            <div class="mc-pct">3.2%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:60%"></div></div>
+          </td>
+        </tr>
+
+        <tr class="school-row" data-colegio="San Nicolas">
+          <td>
+            <div class="sn">San Nicolas</div>
+            <div class="sn-n">203 familias</div>
+          </td>
+          <td class="metric-cell c-psico">
+            <div class="mc-n">30</div>
+            <div class="mc-pct">14.8%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:81%"></div></div>
+          </td>
+          <td class="metric-cell c-mat">
+            <div class="mc-n">20</div>
+            <div class="mc-pct">9.9%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:40%"></div></div>
+          </td>
+          <td class="metric-cell c-inet">
+            <div class="mc-n">18</div>
+            <div class="mc-pct">8.9%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:45%"></div></div>
+          </td>
+          <td class="metric-cell c-asist">
+            <div class="mc-n">15</div>
+            <div class="mc-pct">7.4%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:100%"></div></div>
+          </td>
+        </tr>
+
+        <tr class="school-row" data-colegio="Municipal">
+          <td>
+            <div class="sn">Municipal</div>
+            <div class="sn-n">249 familias</div>
+          </td>
+          <td class="metric-cell c-psico">
+            <div class="mc-n">24</div>
+            <div class="mc-pct">9.6%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:65%"></div></div>
+          </td>
+          <td class="metric-cell c-mat">
+            <div class="mc-n">19</div>
+            <div class="mc-pct">7.6%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:38%"></div></div>
+          </td>
+          <td class="metric-cell c-inet">
+            <div class="mc-n">26</div>
+            <div class="mc-pct">10.4%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:65%"></div></div>
+          </td>
+          <td class="metric-cell c-asist">
+            <div class="mc-n">6</div>
+            <div class="mc-pct">2.4%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:40%"></div></div>
+          </td>
+        </tr>
+
+        <tr class="school-row" data-colegio="Miraflores Bachillerato">
+          <td>
+            <div class="sn">Miraflores Bachillerato</div>
+            <div class="sn-n">271 familias</div>
+          </td>
+          <td class="metric-cell c-psico">
+            <div class="mc-n">19</div>
+            <div class="mc-pct">7.0%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:51%"></div></div>
+          </td>
+          <td class="metric-cell c-mat">
+            <div class="mc-n">28</div>
+            <div class="mc-pct">10.3%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:56%"></div></div>
+          </td>
+          <td class="metric-cell c-inet">
+            <div class="mc-n">18</div>
+            <div class="mc-pct">6.6%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:45%"></div></div>
+          </td>
+          <td class="metric-cell c-asist">
+            <div class="mc-n">11</div>
+            <div class="mc-pct">4.1%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:73%"></div></div>
+          </td>
+        </tr>
+
+        <tr class="school-row" data-colegio="Las Delicias">
+          <td>
+            <div class="sn">Las Delicias</div>
+            <div class="sn-n">157 familias</div>
+          </td>
+          <td class="metric-cell c-psico">
+            <div class="mc-n">17</div>
+            <div class="mc-pct">10.8%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:46%"></div></div>
+          </td>
+          <td class="metric-cell c-mat">
+            <div class="mc-n">15</div>
+            <div class="mc-pct">9.6%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:30%"></div></div>
+          </td>
+          <td class="metric-cell c-inet">
+            <div class="mc-n">21</div>
+            <div class="mc-pct">13.4%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:52%"></div></div>
+          </td>
+          <td class="metric-cell c-asist zero">
+            <div class="mc-n">0</div>
+            <div class="mc-pct">0.0%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:0%"></div></div>
+          </td>
+        </tr>
+
+        <tr class="school-row" data-colegio="Calipso">
+          <td>
+            <div class="sn">Calipso</div>
+            <div class="sn-n">220 familias</div>
+          </td>
+          <td class="metric-cell c-psico">
+            <div class="mc-n">16</div>
+            <div class="mc-pct">7.3%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:43%"></div></div>
+          </td>
+          <td class="metric-cell c-mat">
+            <div class="mc-n">16</div>
+            <div class="mc-pct">7.3%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:32%"></div></div>
+          </td>
+          <td class="metric-cell c-inet">
+            <div class="mc-n">16</div>
+            <div class="mc-pct">7.3%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:40%"></div></div>
+          </td>
+          <td class="metric-cell c-asist">
+            <div class="mc-n">9</div>
+            <div class="mc-pct">4.1%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:60%"></div></div>
+          </td>
+        </tr>
+
+        <tr class="school-row" data-colegio="El Prado Bachillerato">
+          <td>
+            <div class="sn">El Prado Bachillerato</div>
+            <div class="sn-n">355 familias</div>
+          </td>
+          <td class="metric-cell c-psico">
+            <div class="mc-n">14</div>
+            <div class="mc-pct">3.9%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:38%"></div></div>
+          </td>
+          <td class="metric-cell c-mat">
+            <div class="mc-n">36</div>
+            <div class="mc-pct">10.1%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:72%"></div></div>
+          </td>
+          <td class="metric-cell c-inet">
+            <div class="mc-n">24</div>
+            <div class="mc-pct">6.8%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:60%"></div></div>
+          </td>
+          <td class="metric-cell c-asist">
+            <div class="mc-n">14</div>
+            <div class="mc-pct">3.9%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:93%"></div></div>
+          </td>
+        </tr>
+
+        <tr class="school-row" data-colegio="El Prado Primaria">
+          <td>
+            <div class="sn">El Prado Primaria</div>
+            <div class="sn-n">197 familias</div>
+          </td>
+          <td class="metric-cell c-psico">
+            <div class="mc-n">14</div>
+            <div class="mc-pct">7.1%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:38%"></div></div>
+          </td>
+          <td class="metric-cell c-mat">
+            <div class="mc-n">21</div>
+            <div class="mc-pct">10.7%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:42%"></div></div>
+          </td>
+          <td class="metric-cell c-inet">
+            <div class="mc-n">15</div>
+            <div class="mc-pct">7.6%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:38%"></div></div>
+          </td>
+          <td class="metric-cell c-asist">
+            <div class="mc-n">6</div>
+            <div class="mc-pct">3.0%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:40%"></div></div>
+          </td>
+        </tr>
+
+        <tr class="school-row" data-colegio="Buga">
+          <td>
+            <div class="sn">Buga</div>
+            <div class="sn-n">127 familias</div>
+          </td>
+          <td class="metric-cell c-psico">
+            <div class="mc-n">8</div>
+            <div class="mc-pct">6.3%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:22%"></div></div>
+          </td>
+          <td class="metric-cell c-mat">
+            <div class="mc-n">4</div>
+            <div class="mc-pct">3.1%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:8%"></div></div>
+          </td>
+          <td class="metric-cell c-inet">
+            <div class="mc-n">4</div>
+            <div class="mc-pct">3.1%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:10%"></div></div>
+          </td>
+          <td class="metric-cell c-asist">
+            <div class="mc-n">1</div>
+            <div class="mc-pct">0.8%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:7%"></div></div>
+          </td>
+        </tr>
+
+        <tr class="school-row" data-colegio="Comfandi Regional Palmira">
+          <td>
+            <div class="sn">Comfandi Regional Palmira</div>
+            <div class="sn-n">72 familias</div>
+          </td>
+          <td class="metric-cell c-psico">
+            <div class="mc-n">2</div>
+            <div class="mc-pct">2.8%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:5%"></div></div>
+          </td>
+          <td class="metric-cell c-mat zero">
+            <div class="mc-n">0</div>
+            <div class="mc-pct">0.0%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:0%"></div></div>
+          </td>
+          <td class="metric-cell c-inet">
+            <div class="mc-n">3</div>
+            <div class="mc-pct">4.2%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:8%"></div></div>
+          </td>
+          <td class="metric-cell c-asist">
+            <div class="mc-n">1</div>
+            <div class="mc-pct">1.4%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:7%"></div></div>
+          </td>
+        </tr>
+
+        <tr class="school-row" data-colegio="Adultos Cali">
+          <td>
+            <div class="sn">Adultos Cali</div>
+            <div class="sn-n">27 familias</div>
+          </td>
+          <td class="metric-cell c-psico">
+            <div class="mc-n">1</div>
+            <div class="mc-pct">3.7%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:3%"></div></div>
+          </td>
+          <td class="metric-cell c-mat">
+            <div class="mc-n">2</div>
+            <div class="mc-pct">7.4%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:4%"></div></div>
+          </td>
+          <td class="metric-cell c-inet">
+            <div class="mc-n">1</div>
+            <div class="mc-pct">3.7%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:2%"></div></div>
+          </td>
+          <td class="metric-cell c-asist zero">
+            <div class="mc-n">0</div>
+            <div class="mc-pct">0.0%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:0%"></div></div>
+          </td>
+        </tr>
+
+        <tr class="school-row" data-colegio="Comfandi Yumbo">
+          <td>
+            <div class="sn">Comfandi Yumbo</div>
+            <div class="sn-n">2 familias</div>
+          </td>
+          <td class="metric-cell c-psico zero">
+            <div class="mc-n">0</div>
+            <div class="mc-pct">0.0%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:0%"></div></div>
+          </td>
+          <td class="metric-cell c-mat zero">
+            <div class="mc-n">0</div>
+            <div class="mc-pct">0.0%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:0%"></div></div>
+          </td>
+          <td class="metric-cell c-inet zero">
+            <div class="mc-n">0</div>
+            <div class="mc-pct">0.0%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:0%"></div></div>
+          </td>
+          <td class="metric-cell c-asist zero">
+            <div class="mc-n">0</div>
+            <div class="mc-pct">0.0%</div>
+            <div class="mc-bar"><div class="mc-fill" style="width:0%"></div></div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- BOTTOM GRID -->
+  <div class="bottom-grid">
+
+    <div class="bg-left">
+      <div class="mini-title">Infraestructura y vivienda</div>
+
+      <div class="infra-row">
+        <div class="infra-card ic-no-hab">
+          <div class="ic-n" id="kpi-n-no-hab-b">78</div>
+          <div class="ic-lbl">Viviendas<br>no habitables</div>
+          <div class="ic-sub" id="kpi-pct-no-hab-b">3.2% de familias</div>
+        </div>
+        <div class="infra-card ic-enseres">
+          <div class="ic-n" id="kpi-n-enseres">148</div>
+          <div class="ic-lbl">Perdieron<br>enseres b&aacute;sicos</div>
+          <div class="ic-sub" id="kpi-pct-enseres">6.0% de familias</div>
+        </div>
+        <div class="infra-card ic-psico">
+          <div class="ic-n" id="kpi-n-psico-ya-b">141</div>
+          <div class="ic-lbl">Ya reciben<br>apoyo psicosocial</div>
+          <div class="ic-sub" id="kpi-pct-psico-ya-b">5.7% de familias</div>
+        </div>
+      </div>
+
+      <div class="stacked-intro" id="stacked-intro">Estado de las 78 viviendas no habitables</div>
+      <div class="stacked-bar">
+        <div class="sb-seg sb-irrev" id="kpi-sb-irrev" style="width:7.7%"></div>
+        <div class="sb-seg sb-rep"   id="kpi-sb-rep"   style="width:51.3%"></div>
+        <div class="sb-seg sb-leve"  id="kpi-sb-leve"  style="width:9.0%"></div>
+        <div class="sb-seg sb-sin_d" id="kpi-sb-sin-d" style="width:32.1%"></div>
+      </div>
+      <div class="stacked-legend">
+        <div class="sl-item"><div class="sl-dot" style="background:#C4242C"></div>Irreversibles: <span id="kpi-n-irrev">6</span></div>
+        <div class="sl-item"><div class="sl-dot" style="background:#E07520"></div>Reparables: <span id="kpi-n-rep">40</span></div>
+        <div class="sl-item"><div class="sl-dot" style="background:#E8B400"></div>Da&ntilde;os leves: <span id="kpi-n-leve">7</span></div>
+        <div class="sl-item"><div class="sl-dot" style="background:#CBD5E1"></div>Sin da&ntilde;o est.: <span id="kpi-n-sin-d">25</span></div>
+      </div>
+    </div>
+
+    <div class="bg-right">
+      <div class="mini-title">Servicios p&uacute;blicos y situaci&oacute;n econ&oacute;mica</div>
+
+      <div class="mrow">
+        <div class="mrow-lbl">Acceso a energ&iacute;a el&eacute;ctrica</div>
+        <div class="mrow-track"><div class="mrow-fill" style="background:var(--green);width:98%"></div></div>
+        <div class="mrow-val good">98.5%</div>
+      </div>
+      <div class="mrow">
+        <div class="mrow-lbl">Acceso a agua potable</div>
+        <div class="mrow-track"><div class="mrow-fill" style="background:var(--green);width:97%"></div></div>
+        <div class="mrow-val good">97.2%</div>
+      </div>
+      <div class="mrow">
+        <div class="mrow-lbl">Acceso a gas natural</div>
+        <div class="mrow-track"><div class="mrow-fill" style="background:var(--green);width:97%"></div></div>
+        <div class="mrow-val good">97.6%</div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="mini-title" style="margin-bottom:10px">Impacto econ&oacute;mico en los acudientes</div>
+
+      <div class="impact-row">
+        <div class="impact-big">146</div>
+        <div>
+          <div class="impact-lbl">empleos o negocios<br>totalmente afectados</div>
+          <div class="impact-sub">8.4% de las familias encuestadas</div>
+        </div>
+      </div>
+      <div class="impact-row">
+        <div class="impact-big">372</div>
+        <div>
+          <div class="impact-lbl">con actividad<br>parcialmente afectada</div>
+          <div class="impact-sub">21.3% de las familias encuestadas</div>
+        </div>
+      </div>
+      <div class="mrow" style="margin-top:6px">
+        <div class="mrow-lbl">Afectaci&oacute;n f&iacute;sica reportada</div>
+        <div class="mrow-track"><div class="mrow-fill" id="kpi-afis-fill" style="background:var(--amber);width:3%"></div></div>
+        <div class="mrow-val warn" id="kpi-n-afis">81</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-brand">Comfandi &mdash; AVE</div>
+    <div>Encuesta de Bienestar Familiar Post-Sismo 2026 &middot; <span id="footer-total">2,457</span> respuestas &middot; 25/08/2026</div>
+  </div>
+
+</div>
+
+<script>
+const DATOS = {"globales": {"total": 2457, "n_no_hab": 78, "pct_no_hab": 3.2, "n_sin_mat": 232, "pct_sin_mat": 9.4, "n_sin_inet": 225, "pct_sin_inet": 9.2, "n_psico": 214, "pct_psico": 8.7, "n_no_asist": 79, "pct_no_asist": 3.2, "n_psico_ya": 141, "pct_psico_ya": 5.7, "n_enseres": 148, "pct_enseres": 6.0, "n_afis": 81, "n_irrev": 6, "n_rep": 40, "n_leve": 7, "n_sin_d": 25, "w_irrev": 7.7, "w_rep": 51.3, "w_leve": 9.0, "w_sin_d": 32.1, "n_colegios": 13}, "colegios": {"Adultos Cali": {"total": 27, "n_no_hab": 0, "pct_no_hab": 0.0, "n_sin_mat": 2, "pct_sin_mat": 7.4, "n_sin_inet": 1, "pct_sin_inet": 3.7, "n_psico": 1, "pct_psico": 3.7, "n_no_asist": 0, "pct_no_asist": 0.0, "n_psico_ya": 3, "pct_psico_ya": 11.1, "n_enseres": 1, "pct_enseres": 3.7, "n_afis": 1, "n_irrev": 0, "n_rep": 0, "n_leve": 0, "n_sin_d": 0, "w_irrev": 0, "w_rep": 0, "w_leve": 0, "w_sin_d": 0}, "Buga": {"total": 127, "n_no_hab": 1, "pct_no_hab": 0.8, "n_sin_mat": 4, "pct_sin_mat": 3.1, "n_sin_inet": 4, "pct_sin_inet": 3.1, "n_psico": 8, "pct_psico": 6.3, "n_no_asist": 1, "pct_no_asist": 0.8, "n_psico_ya": 4, "pct_psico_ya": 3.1, "n_enseres": 3, "pct_enseres": 2.4, "n_afis": 2, "n_irrev": 0, "n_rep": 0, "n_leve": 0, "n_sin_d": 1, "w_irrev": 0.0, "w_rep": 0.0, "w_leve": 0.0, "w_sin_d": 100.0}, "Calipso": {"total": 220, "n_no_hab": 5, "pct_no_hab": 2.3, "n_sin_mat": 16, "pct_sin_mat": 7.3, "n_sin_inet": 16, "pct_sin_inet": 7.3, "n_psico": 16, "pct_psico": 7.3, "n_no_asist": 9, "pct_no_asist": 4.1, "n_psico_ya": 17, "pct_psico_ya": 7.7, "n_enseres": 9, "pct_enseres": 4.1, "n_afis": 8, "n_irrev": 0, "n_rep": 3, "n_leve": 0, "n_sin_d": 2, "w_irrev": 0.0, "w_rep": 60.0, "w_leve": 0.0, "w_sin_d": 40.0}, "Comfandi Regional Palmira": {"total": 72, "n_no_hab": 1, "pct_no_hab": 1.4, "n_sin_mat": 0, "pct_sin_mat": 0.0, "n_sin_inet": 3, "pct_sin_inet": 4.2, "n_psico": 2, "pct_psico": 2.8, "n_no_asist": 1, "pct_no_asist": 1.4, "n_psico_ya": 4, "pct_psico_ya": 5.6, "n_enseres": 0, "pct_enseres": 0.0, "n_afis": 2, "n_irrev": 0, "n_rep": 0, "n_leve": 0, "n_sin_d": 1, "w_irrev": 0.0, "w_rep": 0.0, "w_leve": 0.0, "w_sin_d": 100.0}, "Comfandi Yumbo": {"total": 2, "n_no_hab": 0, "pct_no_hab": 0.0, "n_sin_mat": 0, "pct_sin_mat": 0.0, "n_sin_inet": 0, "pct_sin_inet": 0.0, "n_psico": 0, "pct_psico": 0.0, "n_no_asist": 0, "pct_no_asist": 0.0, "n_psico_ya": 0, "pct_psico_ya": 0.0, "n_enseres": 1, "pct_enseres": 50.0, "n_afis": 0, "n_irrev": 0, "n_rep": 0, "n_leve": 0, "n_sin_d": 0, "w_irrev": 0, "w_rep": 0, "w_leve": 0, "w_sin_d": 0}, "El Prado Bachillerato": {"total": 355, "n_no_hab": 6, "pct_no_hab": 1.7, "n_sin_mat": 36, "pct_sin_mat": 10.1, "n_sin_inet": 24, "pct_sin_inet": 6.8, "n_psico": 14, "pct_psico": 3.9, "n_no_asist": 14, "pct_no_asist": 3.9, "n_psico_ya": 24, "pct_psico_ya": 6.8, "n_enseres": 23, "pct_enseres": 6.5, "n_afis": 13, "n_irrev": 0, "n_rep": 1, "n_leve": 3, "n_sin_d": 2, "w_irrev": 0.0, "w_rep": 16.7, "w_leve": 50.0, "w_sin_d": 33.3}, "El Prado Primaria": {"total": 197, "n_no_hab": 6, "pct_no_hab": 3.0, "n_sin_mat": 21, "pct_sin_mat": 10.7, "n_sin_inet": 15, "pct_sin_inet": 7.6, "n_psico": 14, "pct_psico": 7.1, "n_no_asist": 6, "pct_no_asist": 3.0, "n_psico_ya": 7, "pct_psico_ya": 3.6, "n_enseres": 13, "pct_enseres": 6.6, "n_afis": 6, "n_irrev": 0, "n_rep": 3, "n_leve": 0, "n_sin_d": 3, "w_irrev": 0.0, "w_rep": 50.0, "w_leve": 0.0, "w_sin_d": 50.0}, "Las Delicias": {"total": 157, "n_no_hab": 4, "pct_no_hab": 2.5, "n_sin_mat": 15, "pct_sin_mat": 9.6, "n_sin_inet": 21, "pct_sin_inet": 13.4, "n_psico": 17, "pct_psico": 10.8, "n_no_asist": 0, "pct_no_asist": 0.0, "n_psico_ya": 7, "pct_psico_ya": 4.5, "n_enseres": 8, "pct_enseres": 5.1, "n_afis": 4, "n_irrev": 0, "n_rep": 2, "n_leve": 1, "n_sin_d": 1, "w_irrev": 0.0, "w_rep": 50.0, "w_leve": 25.0, "w_sin_d": 25.0}, "Miraflores Bachillerato": {"total": 271, "n_no_hab": 15, "pct_no_hab": 5.5, "n_sin_mat": 28, "pct_sin_mat": 10.3, "n_sin_inet": 18, "pct_sin_inet": 6.6, "n_psico": 19, "pct_psico": 7.0, "n_no_asist": 11, "pct_no_asist": 4.1, "n_psico_ya": 18, "pct_psico_ya": 6.6, "n_enseres": 20, "pct_enseres": 7.4, "n_afis": 10, "n_irrev": 1, "n_rep": 11, "n_leve": 0, "n_sin_d": 3, "w_irrev": 6.7, "w_rep": 73.3, "w_leve": 0.0, "w_sin_d": 20.0}, "Miraflores Primaria": {"total": 298, "n_no_hab": 6, "pct_no_hab": 2.0, "n_sin_mat": 21, "pct_sin_mat": 7.0, "n_sin_inet": 39, "pct_sin_inet": 13.1, "n_psico": 37, "pct_psico": 12.4, "n_no_asist": 7, "pct_no_asist": 2.3, "n_psico_ya": 16, "pct_psico_ya": 5.4, "n_enseres": 18, "pct_enseres": 6.0, "n_afis": 13, "n_irrev": 0, "n_rep": 5, "n_leve": 0, "n_sin_d": 1, "w_irrev": 0.0, "w_rep": 83.3, "w_leve": 0.0, "w_sin_d": 16.7}, "Municipal": {"total": 249, "n_no_hab": 17, "pct_no_hab": 6.8, "n_sin_mat": 19, "pct_sin_mat": 7.6, "n_sin_inet": 26, "pct_sin_inet": 10.4, "n_psico": 24, "pct_psico": 9.6, "n_no_asist": 6, "pct_no_asist": 2.4, "n_psico_ya": 10, "pct_psico_ya": 4.0, "n_enseres": 11, "pct_enseres": 4.4, "n_afis": 8, "n_irrev": 0, "n_rep": 7, "n_leve": 2, "n_sin_d": 8, "w_irrev": 0.0, "w_rep": 41.2, "w_leve": 11.8, "w_sin_d": 47.1}, "San Nicolas": {"total": 203, "n_no_hab": 13, "pct_no_hab": 6.4, "n_sin_mat": 20, "pct_sin_mat": 9.9, "n_sin_inet": 18, "pct_sin_inet": 8.9, "n_psico": 30, "pct_psico": 14.8, "n_no_asist": 15, "pct_no_asist": 7.4, "n_psico_ya": 13, "pct_psico_ya": 6.4, "n_enseres": 17, "pct_enseres": 8.4, "n_afis": 2, "n_irrev": 4, "n_rep": 7, "n_leve": 1, "n_sin_d": 1, "w_irrev": 30.8, "w_rep": 53.8, "w_leve": 7.7, "w_sin_d": 7.7}, "Terranova": {"total": 279, "n_no_hab": 4, "pct_no_hab": 1.4, "n_sin_mat": 50, "pct_sin_mat": 17.9, "n_sin_inet": 40, "pct_sin_inet": 14.3, "n_psico": 32, "pct_psico": 11.5, "n_no_asist": 9, "pct_no_asist": 3.2, "n_psico_ya": 18, "pct_psico_ya": 6.5, "n_enseres": 24, "pct_enseres": 8.6, "n_afis": 12, "n_irrev": 1, "n_rep": 1, "n_leve": 0, "n_sin_d": 2, "w_irrev": 25.0, "w_rep": 25.0, "w_leve": 0.0, "w_sin_d": 50.0}}};
+
+function filtrar(colegio) {
+  const esTotal = colegio === '__todos__';
+  const dat = esTotal ? DATOS.globales : DATOS.colegios[colegio];
+  if (!dat) return;
+
+  // Header
+  document.getElementById('kpi-total').textContent = dat.total.toLocaleString('es-CO');
+  document.getElementById('kpi-total-lbl').textContent =
+    esTotal ? 'familias respondieron' : 'familias en este colegio';
+  document.getElementById('kpi-n-colegios').textContent =
+    esTotal ? DATOS.globales.n_colegios + ' colegios' : '1 colegio';
+
+  // Alert tiles
+  document.getElementById('kpi-n-no-hab').textContent    = dat.n_no_hab;
+  document.getElementById('kpi-pct-no-hab').textContent  = dat.pct_no_hab + '% del total';
+  document.getElementById('kpi-n-sin-mat').textContent   = dat.n_sin_mat;
+  document.getElementById('kpi-pct-sin-mat').textContent = dat.pct_sin_mat + '% del total';
+  document.getElementById('kpi-n-sin-inet').textContent  = dat.n_sin_inet;
+  document.getElementById('kpi-pct-sin-inet').textContent= dat.pct_sin_inet + '% del total';
+  document.getElementById('kpi-n-psico').textContent     = dat.n_psico;
+  document.getElementById('kpi-pct-psico').textContent   = dat.pct_psico + '% del total';
+  document.getElementById('kpi-n-no-asist').textContent  = dat.n_no_asist;
+  document.getElementById('kpi-pct-no-asist').textContent= dat.pct_no_asist + '% del total';
+  document.getElementById('kpi-n-psico-ya').textContent  = dat.n_psico_ya;
+  document.getElementById('kpi-pct-psico-ya').textContent= dat.pct_psico_ya + '% del total';
+
+  // Bottom grid — infra cards
+  document.getElementById('kpi-n-no-hab-b').textContent   = dat.n_no_hab;
+  document.getElementById('kpi-pct-no-hab-b').textContent = dat.pct_no_hab + '% de familias';
+  document.getElementById('kpi-n-enseres').textContent    = dat.n_enseres;
+  document.getElementById('kpi-pct-enseres').textContent  = dat.pct_enseres + '% de familias';
+  document.getElementById('kpi-n-psico-ya-b').textContent  = dat.n_psico_ya;
+  document.getElementById('kpi-pct-psico-ya-b').textContent= dat.pct_psico_ya + '% de familias';
+
+  // Stacked bar
+  document.getElementById('kpi-sb-irrev').style.width = dat.w_irrev + '%';
+  document.getElementById('kpi-sb-rep').style.width   = dat.w_rep   + '%';
+  document.getElementById('kpi-sb-leve').style.width  = dat.w_leve  + '%';
+  document.getElementById('kpi-sb-sin-d').style.width = dat.w_sin_d + '%';
+  document.getElementById('kpi-n-irrev').textContent  = dat.n_irrev;
+  document.getElementById('kpi-n-rep').textContent    = dat.n_rep;
+  document.getElementById('kpi-n-leve').textContent   = dat.n_leve;
+  document.getElementById('kpi-n-sin-d').textContent  = dat.n_sin_d;
+  document.getElementById('stacked-intro').textContent =
+    'Estado de las ' + dat.n_no_hab + ' viviendas no habitables';
+
+  // Afectación física
+  const pctAfis = dat.total ? Math.round(100 * dat.n_afis / dat.total) : 0;
+  document.getElementById('kpi-afis-fill').style.width = pctAfis + '%';
+  document.getElementById('kpi-n-afis').textContent    = dat.n_afis;
+
+  // Footer total
+  document.getElementById('footer-total').textContent = dat.total.toLocaleString('es-CO');
+
+  // Tabla — mostrar/ocultar filas
+  document.querySelectorAll('.school-row').forEach(row => {
+    if (esTotal) {
+      row.style.display = '';
+      row.classList.remove('highlighted');
+    } else {
+      const match = row.dataset.colegio === colegio;
+      row.style.display = match ? '' : 'none';
+      row.classList.toggle('highlighted', match);
+    }
+  });
+
+  // Totales de columna en encabezado de tabla
+  if (esTotal) {
+    const colegiosVisibles = DATOS.globales;
+    // Restaurar totales globales desde filas visibles
+    let tp=0, tm=0, ti=0, ta=0;
+    document.querySelectorAll('.school-row').forEach(row => {
+      const cells = row.querySelectorAll('.mc-n');
+      tp += parseInt(cells[0].textContent) || 0;
+      tm += parseInt(cells[1].textContent) || 0;
+      ti += parseInt(cells[2].textContent) || 0;
+      ta += parseInt(cells[3].textContent) || 0;
+    });
+    document.getElementById('th-tot-psico').textContent = tp + ' total';
+    document.getElementById('th-tot-mat').textContent   = tm + ' total';
+    document.getElementById('th-tot-inet').textContent  = ti + ' total';
+    document.getElementById('th-tot-asist').textContent = ta + ' total';
+  } else {
+    document.getElementById('th-tot-psico').textContent = dat.n_psico    + ' total';
+    document.getElementById('th-tot-mat').textContent   = dat.n_sin_mat  + ' total';
+    document.getElementById('th-tot-inet').textContent  = dat.n_sin_inet + ' total';
+    document.getElementById('th-tot-asist').textContent = dat.n_no_asist + ' total';
+  }
+
+  // Pills activas
+  document.querySelectorAll('.filter-pill').forEach(pill => {
+    pill.classList.toggle('active', pill.dataset.colegio === colegio);
+  });
+}
+
+// Inicializar listeners
+document.querySelectorAll('.filter-pill').forEach(btn => {
+  btn.addEventListener('click', () => filtrar(btn.dataset.colegio));
+});
+</script>
+</body>
+</html>
